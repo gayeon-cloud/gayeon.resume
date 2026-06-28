@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Portfolio — Template</title>
+	<meta name="description" content="Clean, scannable portfolio template." />
+	<style>
+		:root{
+			--bg:#0b0f19;
+			--surface:rgba(255,255,255,.06);
+			--surface-2:rgba(255,255,255,.10);
+			--text:#eaf0ff;
+			--muted:rgba(234,240,255,.72);
+			--faint:rgba(234,240,255,.50);
+			--line:rgba(234,240,255,.14);
+			--accent:#7dd3fc;
+			--accent-2:#a78bfa;
+			--ok:#34d399;
+			--shadow:0 10px 30px rgba(0,0,0,.25);
+			--radius:16px;
+			--max:1080px;
+			--mono:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+			--sans:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", Arial, sans-serif;
+		}
+		@media (prefers-color-scheme: light){
+			:root{
+				--bg:#f7f8fc;
+				--surface:rgba(0,0,0,.04);
+				--surface-2:rgba(0,0,0,.07);
+				--text:#0b1220;
+				--muted:rgba(11,18,32,.72);
+				--faint:rgba(11,18,32,.52);
+				--line:rgba(11,18,32,.14);
+				--shadow:0 10px 30px rgba(0,0,0,.10);
+				--accent:#0369a1;
+				--accent-2:#6d28d9;
+			}
+		}
+		*{box-sizing:border-box}
+		html,body{height:100%}
+		body{
+			margin:0;
+			font-family:var(--sans);
+			color:var(--text);
+			background:
+				radial-gradient(1200px 900px at 20% -10%, rgba(125,211,252,.22), transparent 60%),
+				radial-gradient(900px 800px at 110% 10%, rgba(167,139,250,.20), transparent 55%),
+				linear-gradient(180deg, var(--bg), var(--bg));
+			line-height:1.55;
+		}
+		a{color:inherit;text-decoration:none}
+		a:hover{text-decoration:underline}
+		.container{max-width:var(--max);margin:0 auto;padding:28px 20px 80px}
+		.topbar{
+			position:sticky;top:0;z-index:10;
+			backdrop-filter:saturate(140%) blur(10px);
+			background:linear-gradient(180deg, rgba(11,15,25,.75), rgba(11,15,25,.35));
+			border-bottom:1px solid var(--line);
+		}
+		@media (prefers-color-scheme: light){
+			.topbar{background:linear-gradient(180deg, rgba(247,248,252,.86), rgba(247,248,252,.55));}
+		}
+		.topbar-inner{max-width:var(--max);margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+		.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.2px}
+		.dot{width:10px;height:10px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 0 0 3px rgba(125,211,252,.18)}
+		.nav{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:flex-end}
+		.pill{
+			padding:7px 10px;border:1px solid var(--line);
+			border-radius:999px;background:rgba(255,255,255,.03);
+			font-size:13px;color:var(--muted)
+		}
+		.pill:hover{border-color:rgba(125,211,252,.45);color:var(--text);text-decoration:none}
+
+		.hero{padding:44px 0 26px;display:grid;grid-template-columns:1.2fr .8fr;gap:22px;align-items:stretch}
+		@media (max-width: 860px){.hero{grid-template-columns:1fr;}}
+		.card{
+			background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+			border:1px solid var(--line);
+			border-radius:var(--radius);
+			box-shadow:var(--shadow);
+		}
+		.card-inner{padding:22px}
+		.kicker{display:inline-flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);letter-spacing:.24px;text-transform:uppercase}
+		.badge{font-family:var(--mono);font-size:12px;padding:3px 8px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+		h1{margin:12px 0 10px;font-size:38px;line-height:1.15;letter-spacing:-.4px}
+		@media (max-width: 420px){h1{font-size:32px}}
+		.sub{margin:0;color:var(--muted);font-size:15px}
+		.cta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+		.btn{
+			display:inline-flex;align-items:center;gap:8px;
+			padding:10px 12px;border-radius:12px;
+			border:1px solid var(--line);
+			background:rgba(255,255,255,.03);
+			font-weight:600;font-size:14px;color:var(--text)
+		}
+		.btn.primary{border-color:rgba(125,211,252,.40);background:linear-gradient(135deg, rgba(125,211,252,.18), rgba(167,139,250,.14))}
+		.btn:hover{text-decoration:none;transform:translateY(-1px)}
+		.small{font-size:12px;color:var(--faint)}
+
+		.profile{display:grid;grid-template-columns:72px 1fr;gap:14px;align-items:center}
+		.avatar{width:72px;height:72px;border-radius:18px;background:linear-gradient(135deg, rgba(125,211,252,.35), rgba(167,139,250,.30));border:1px solid rgba(234,240,255,.18)}
+		.meta{display:flex;flex-direction:column;gap:4px}
+		.meta strong{font-size:14px}
+		.meta span{color:var(--muted);font-size:13px}
+		.quick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+		.quick .item{padding:12px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.02)}
+		.quick .item .label{font-size:12px;color:var(--faint)}
+		.quick .item .value{margin-top:6px;font-weight:650}
+
+		.section{margin-top:26px}
+		.h2{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 12px}
+		.h2 h2{margin:0;font-size:16px;letter-spacing:.2px}
+		.h2 .hint{font-size:12px;color:var(--faint)}
+		.grid{display:grid;grid-template-columns:repeat(12, 1fr);gap:14px}
+		.col-6{grid-column:span 6}
+		.col-4{grid-column:span 4}
+		.col-12{grid-column:span 12}
+		@media (max-width: 860px){.col-6,.col-4{grid-column:span 12}}
+		.panel{padding:18px;border-radius:var(--radius);border:1px solid var(--line);background:rgba(255,255,255,.03)}
+		.panel:hover{border-color:rgba(125,211,252,.35)}
+		.panel h3{margin:0 0 6px;font-size:14px}
+		.panel p{margin:0;color:var(--muted);font-size:13px}
+		.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+		.tag{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.02)}
+
+		.timeline{display:flex;flex-direction:column;gap:10px}
+		.entry{display:flex;gap:12px;align-items:flex-start}
+		.when{min-width:110px;font-family:var(--mono);font-size:12px;color:var(--faint);padding-top:2px}
+		.what{flex:1}
+		.what .title{font-weight:700}
+		.what .desc{color:var(--muted);font-size:13px;margin-top:4px}
+		.hr{height:1px;background:var(--line);margin:18px 0}
+		.footer{margin-top:34px;padding-top:22px;border-top:1px solid var(--line);color:var(--faint);font-size:12px;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
+		@media print{
+			.topbar{position:static}
+			body{background:white;color:black}
+			.card,.panel{box-shadow:none}
+			.pill,.btn,.tag{border-color:#ddd}
+		}
+	</style>
+</head>
+<body>
+	<header class="topbar">
+		<div class="topbar-inner">
+			<div class="brand">
+				<span class="dot" aria-hidden="true"></span>
+				<span>이름 Name_ 두가연 Gayeon Du</span>
+				<span class="pill" style="cursor:default">Portfolio</span>
+			</div>
+			<nav class="nav" aria-label="Section navigation">
+				<a class="pill" href="#projects">Projects</a>
+				<a class="pill" href="#experience">Experience</a>
+				<a class="pill" href="#skills">Skills</a>
+				<a class="pill" href="#writing">Writing</a>
+				<a class="pill" href="#contact">Contact</a>
+			</nav>
+		</div>
+	</header>
+
+	<main class="container">
+		<section class="hero" aria-label="Intro">
+			<div class="card">
+				<div class="card-inner">
+					<div class="kicker">
+						<span class="badge">ROLE</span>
+						<span>Short headline that explains what you do</span>
+					</div>
+					<h1>Clean, scannable<br/>portfolio template.</h1>
+					<p class="sub">Write 2–4 lines about your focus, strengths, and the kind of work you want. Keep it concrete and easy to skim.</p>
+					<div class="cta-row">
+						<a class="btn primary" href="#projects">View projects</a>
+						<a class="btn" href="#contact">Contact</a>
+						<a class="btn" href="#" onclick="window.print(); return false;">Print / PDF</a>
+					</div>
+					<div class="hr"></div>
+					<div class="small">Tip: Replace placeholders like <span class="badge">ROLE</span>, <span class="badge">YOUR NAME</span>, and sample cards with real content later.</div>
+				</div>
+			</div>
+			<aside class="card" aria-label="Profile quick facts">
+				<div class="card-inner">
+					<div class="profile">
+						<div class="avatar" aria-hidden="true"></div>
+						<div class="meta">
+							<strong>YOUR NAME</strong>
+							<span>City • Timezone • Open to opportunities</span>
+							<span class="small">email@example.com • github.com/username</span>
+						</div>
+					</div>
+					<div class="quick">
+						<div class="item"><div class="label">Focus</div><div class="value">Design / Frontend / Product</div></div>
+						<div class="item"><div class="label">Strength</div><div class="value">Clarity & execution</div></div>
+						<div class="item"><div class="label">Availability</div><div class="value"><span style="color:var(--ok)">●</span> Open</div></div>
+						<div class="item"><div class="label">Languages</div><div class="value">Korean / English</div></div>
+					</div>
+				</div>
+			</aside>
+		</section>
+
+		<section id="projects" class="section" aria-label="Projects">
+			<div class="h2"><h2>Projects</h2><div class="hint">2–6 highlight cards</div></div>
+			<div class="grid">
+				<article class="panel col-6">
+					<h3>Project Title</h3>
+					<p>One sentence: what it is + why it matters. Second sentence: what you shipped or improved.</p>
+					<div class="row"><span class="tag">Role</span><span class="tag">Impact</span><span class="tag">Stack</span></div>
+					<div class="row" style="margin-top:12px"><a class="btn" href="#">Live</a><a class="btn" href="#">Case study</a><a class="btn" href="#">GitHub</a></div>
+				</article>
+				<article class="panel col-6">
+					<h3>Project Title</h3>
+					<p>Problem → Solution. Mention metrics if you have them.</p>
+					<div class="row"><span class="tag">UI/UX</span><span class="tag">Prototype</span><span class="tag">React</span></div>
+					<div class="row" style="margin-top:12px"><a class="btn" href="#">Live</a><a class="btn" href="#">Case study</a></div>
+				</article>
+				<article class="panel col-4"><h3>Smaller Project</h3><p>Short description.</p><div class="row"><span class="tag">Tooling</span><span class="tag">Open source</span></div></article>
+				<article class="panel col-4"><h3>Smaller Project</h3><p>Short description.</p><div class="row"><span class="tag">Design system</span><span class="tag">Docs</span></div></article>
+				<article class="panel col-4"><h3>Smaller Project</h3><p>Short description.</p><div class="row"><span class="tag">Experiment</span><span class="tag">Performance</span></div></article>
+			</div>
+		</section>
+
+		<section id="experience" class="section" aria-label="Experience">
+			<div class="h2"><h2>Experience</h2><div class="hint">reverse chronological • focus on outcomes</div></div>
+			<div class="panel">
+				<div class="timeline">
+					<div class="entry"><div class="when">2025 — Now</div><div class="what"><div class="title">Company / Team — Role</div><div class="desc">Achievements, scope, impact.</div></div></div>
+					<div class="entry"><div class="when">2023 — 2025</div><div class="what"><div class="title">Company / Team — Role</div><div class="desc">Achievements, scope, impact.</div></div></div>
+				</div>
+			</div>
+		</section>
+
+		<section id="skills" class="section" aria-label="Skills">
+			<div class="h2"><h2>Skills</h2><div class="hint">group by category</div></div>
+			<div class="grid">
+				<div class="panel col-4"><h3>Core</h3><p>Product thinking • UI engineering • UX</p><div class="row"><span class="tag">Design</span><span class="tag">Frontend</span></div></div>
+				<div class="panel col-4"><h3>Tools</h3><p>Figma • Notion • Git</p><div class="row"><span class="tag">Collaboration</span><span class="tag">Docs</span></div></div>
+				<div class="panel col-4"><h3>Tech</h3><p>HTML/CSS • JavaScript • React</p><div class="row"><span class="tag">Web</span><span class="tag">Performance</span></div></div>
+			</div>
+		</section>
+
+		<section id="writing" class="section" aria-label="Writing">
+			<div class="h2"><h2>Writing</h2><div class="hint">optional</div></div>
+			<div class="grid">
+				<a class="panel col-6" href="#"><h3>Post title (link)</h3><p>One sentence summary.</p><div class="row"><span class="tag">2026</span><span class="tag">Design</span></div></a>
+				<a class="panel col-6" href="#"><h3>Post title (link)</h3><p>One sentence summary.</p><div class="row"><span class="tag">2026</span><span class="tag">Frontend</span></div></a>
+			</div>
+		</section>
+
+		<section id="contact" class="section" aria-label="Contact">
+			<div class="h2"><h2>Contact</h2><div class="hint">make it easy to reach you</div></div>
+			<div class="panel">
+				<p style="margin:0 0 12px;color:var(--muted)">Short, friendly line. Example: “프로젝트/채용/협업 문의 환영해요.”</p>
+				<div class="row">
+					<a class="btn primary" href="mailto:email@example.com">email@example.com</a>
+					<a class="btn" href="#">LinkedIn</a>
+					<a class="btn" href="#">GitHub</a>
+					<a class="btn" href="#">Blog</a>
+				</div>
+			</div>
+		</section>
+
+		<footer class="footer">
+			<div>© <span id="y"></span> YOUR NAME</div>
+			<div class="small">Single-file HTML template.</div>
+		</footer>
+	</main>
+
+	<script>
+		document.getElementById('y').textContent = new Date().getFullYear();
+	</script>
+</body>
+</html>
